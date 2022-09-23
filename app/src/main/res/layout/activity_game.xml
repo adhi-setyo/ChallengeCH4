@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.game.GameActivity">
+
+    <ImageView
+        android:id="@+id/iv_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:src="@drawable/header"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="parent"/>
+    
+    <LinearLayout
+        android:id="@+id/ll_playerleft"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/iv_header"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_30sdp">
+
+        <ImageView
+            android:id="@+id/iv_left_rock"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:src="@drawable/batu"
+            android:layout_marginVertical="@dimen/_30sdp"/>
+
+        <ImageView
+            android:id="@+id/iv_left_paper"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:src="@drawable/kertas"
+            android:layout_marginVertical="@dimen/_30sdp"/>
+
+        <ImageView
+            android:id="@+id/iv_left_scissor"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:src="@drawable/gunting"
+            android:layout_marginVertical="@dimen/_30sdp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_playerright"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/iv_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_30sdp">
+
+        <ImageView
+            android:id="@+id/iv_right_rock"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:src="@drawable/batu"
+            android:layout_marginVertical="@dimen/_30sdp"/>
+
+        <ImageView
+            android:id="@+id/iv_right_paper"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:src="@drawable/kertas"
+            android:layout_marginVertical="@dimen/_30sdp"/>
+
+        <ImageView
+            android:id="@+id/iv_right_scissor"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:src="@drawable/gunting"
+            android:layout_marginVertical="@dimen/_30sdp"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_reset"
+        android:src="@drawable/refresh"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        app:layout_constraintTop_toBottomOf="@id/ll_playerright"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_10sdp"/>
+
+    <ImageView
+        android:id="@+id/iv_versus"
+        android:src="@drawable/versus"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        app:layout_constraintStart_toStartOf="@id/ll_playerleft"
+        app:layout_constraintEnd_toEndOf="@id/ll_playerright"
+        app:layout_constraintTop_toBottomOf="@id/iv_header"
+        android:layout_marginTop="200dp"
+        android:visibility="visible"
+        android:layout_marginEnd="@dimen/_10sdp"/>
+
+    <ImageView
+        android:id="@+id/iv_playerone"
+        android:src="@drawable/pemain1"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        app:layout_constraintStart_toStartOf="@id/ll_playerleft"
+        app:layout_constraintEnd_toEndOf="@id/ll_playerright"
+        app:layout_constraintTop_toBottomOf="@id/iv_header"
+        android:layout_marginTop="200dp"
+        android:visibility="invisible"
+        android:layout_marginEnd="@dimen/_10sdp"/>
+
+    <ImageView
+        android:id="@+id/iv_playertwo"
+        android:src="@drawable/pemain2"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        app:layout_constraintStart_toStartOf="@id/ll_playerleft"
+        app:layout_constraintEnd_toEndOf="@id/ll_playerright"
+        app:layout_constraintTop_toBottomOf="@id/iv_header"
+        android:layout_marginTop="200dp"
+        android:visibility="invisible"
+        android:layout_marginEnd="@dimen/_10sdp"/>
+
+    <ImageView
+        android:id="@+id/iv_draw"
+        android:src="@drawable/draw"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        app:layout_constraintStart_toStartOf="@id/ll_playerleft"
+        app:layout_constraintEnd_toEndOf="@id/ll_playerright"
+        app:layout_constraintTop_toBottomOf="@id/iv_header"
+        android:layout_marginTop="200dp"
+        android:visibility="invisible"
+        android:layout_marginEnd="@dimen/_10sdp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
