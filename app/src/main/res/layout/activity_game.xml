@@ -29,21 +29,24 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
             android:src="@drawable/batu"
-            android:layout_marginVertical="@dimen/_30sdp"/>
+            android:layout_marginVertical="@dimen/_30sdp"
+            android:visibility="visible"/>
 
         <ImageView
             android:id="@+id/iv_left_paper"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
             android:src="@drawable/kertas"
-            android:layout_marginVertical="@dimen/_30sdp"/>
+            android:layout_marginVertical="@dimen/_30sdp"
+            android:visibility="visible"/>
 
         <ImageView
             android:id="@+id/iv_left_scissor"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
             android:src="@drawable/gunting"
-            android:layout_marginVertical="@dimen/_30sdp"/>
+            android:layout_marginVertical="@dimen/_30sdp"
+            android:visibility="visible"/>
     </LinearLayout>
 
     <LinearLayout
@@ -60,32 +63,36 @@
             android:id="@+id/iv_right_rock"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
-            android:src="@drawable/batu"
-            android:layout_marginVertical="@dimen/_30sdp"/>
+            android:src="@drawable/batukanan"
+            android:layout_marginVertical="@dimen/_30sdp"
+            android:visibility="visible"/>
 
         <ImageView
             android:id="@+id/iv_right_paper"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
-            android:src="@drawable/kertas"
-            android:layout_marginVertical="@dimen/_30sdp"/>
+            android:src="@drawable/kertaskanan"
+            android:layout_marginVertical="@dimen/_30sdp"
+            android:visibility="visible"/>
 
         <ImageView
             android:id="@+id/iv_right_scissor"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
-            android:src="@drawable/gunting"
-            android:layout_marginVertical="@dimen/_30sdp"/>
+            android:src="@drawable/guntingkanan"
+            android:layout_marginVertical="@dimen/_30sdp"
+            android:visibility="visible"/>
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/iv_reset"
+        android:id="@+id/iv_refresh"
         android:src="@drawable/refresh"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
-        app:layout_constraintTop_toBottomOf="@id/ll_playerright"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="@dimen/_10sdp"/>
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"/>
 
     <ImageView
         android:id="@+id/iv_versus"
@@ -134,7 +141,5 @@
         android:layout_marginTop="200dp"
         android:visibility="invisible"
         android:layout_marginEnd="@dimen/_10sdp"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

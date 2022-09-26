@@ -1,5 +1,6 @@
 package com.adhi.challengech4.ui.game
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.VideoView
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.blue
 import com.adhi.challengech4.R
 import com.adhi.challengech4.databinding.ActivityGameBinding
 import com.adhi.challengech4.enum.GameState
@@ -35,25 +37,36 @@ class GameActivity : AppCompatActivity(), SuitGameListener {
         setOnClickListener()
     }
 
+
+
     private fun setOnClickListener() {
         binding.ivLeftRock.setOnClickListener{
             suitGameManager.choosePlayerRock()
-             Log.d("Button", "Rock Character")
+            Log.d("Button", "Rock Character")
+            binding.ivLeftRock.visibility=View.VISIBLE
+            binding.ivLeftPaper.visibility=View.INVISIBLE
+            binding.ivLeftScissor.visibility=View.INVISIBLE
         }
         binding.ivLeftPaper.setOnClickListener{
             suitGameManager.choosePlayerPaper()
             Log.d("Button", "Paper Character")
-
+            binding.ivLeftPaper.visibility=View.VISIBLE
+            binding.ivLeftRock.visibility=View.INVISIBLE
+            binding.ivLeftScissor.visibility=View.INVISIBLE
         }
         binding.ivLeftScissor.setOnClickListener{
             suitGameManager.choosePlayerScissor()
             Log.d("Button", "Scissor Character")
-
+            binding.ivLeftScissor.visibility=View.VISIBLE
+            binding.ivLeftPaper.visibility=View.INVISIBLE
+            binding.ivLeftRock.visibility=View.INVISIBLE
         }
-        binding.ivReset.setOnClickListener{
-            suitGameManager.ResetGame()
+        binding.ivRefresh.setOnClickListener{
+            suitGameManager.startOrResetGame()
             Log.d("Button", "For Reset Game")
-
+            binding.ivRightScissor.visibility=View.VISIBLE
+            binding.ivRightPaper.visibility=View.VISIBLE
+            binding.ivRightRock.visibility=View.VISIBLE
         }
     }
 
@@ -80,19 +93,19 @@ class GameActivity : AppCompatActivity(), SuitGameListener {
         when (player.playerCharacter) {
             PlayerCharacter.ROCK -> {
                 ivRock.visibility = View.VISIBLE
-                ivPaper.visibility = View.VISIBLE
-                ivScissor.visibility = View.VISIBLE
+                ivPaper.visibility = View.INVISIBLE
+                ivScissor.visibility = View.INVISIBLE
                 ivRock.setImageDrawable(drawable)
             }
             PlayerCharacter.PAPER -> {
-                ivRock.visibility = View.VISIBLE
+                ivRock.visibility = View.INVISIBLE
                 ivPaper.visibility = View.VISIBLE
-                ivScissor.visibility = View.VISIBLE
+                ivScissor.visibility = View.INVISIBLE
                 ivPaper.setImageDrawable(drawable)
             }
             PlayerCharacter.SCISSOR-> {
-                ivRock.visibility = View.VISIBLE
-                ivPaper.visibility = View.VISIBLE
+                ivRock.visibility = View.INVISIBLE
+                ivPaper.visibility = View.INVISIBLE
                 ivScissor.visibility = View.VISIBLE
                 ivScissor.setImageDrawable(drawable)
             }
@@ -100,20 +113,32 @@ class GameActivity : AppCompatActivity(), SuitGameListener {
     }
 
     override fun onGameChanged(gameState: GameState) {
+        binding.ivPlayerone.visibility=View.INVISIBLE
+        binding.ivPlayertwo.visibility=View.INVISIBLE
+        binding.ivDraw.visibility=View.INVISIBLE
+
+        //left
+        binding.ivLeftRock.visibility=View.VISIBLE
+        binding.ivLeftPaper.visibility=View.VISIBLE
+        binding.ivLeftScissor.visibility=View.VISIBLE
+
+        //right
+        /*
+        binding.ivRightRock.visibility=View.VISIBLE
+        binding.ivRightPaper.visibility=View.VISIBLE
+        binding.ivRightScissor.visibility=View.VISIBLE
+        */
+
 
     }
-    
+
     override fun onGameFinished(gameState: GameState, winner: Player) {
-       if(winner.playerSide == PlayerSide.PLAYER_ONE){
-           binding.ivVersus.visibility = View.INVISIBLE
-           binding.ivPlayerone.visibility = View.VISIBLE
-       }else if(winner.playerSide == PlayerSide.PLAYER_TWO){
-           binding.ivVersus.visibility = View.INVISIBLE
-           binding.ivPlayertwo.visibility = View.VISIBLE
-       }else{
-           binding.ivVersus.visibility = View.INVISIBLE
-           binding.ivDraw.visibility = View.VISIBLE
-       }
+
+       if (winner.playerSide == PlayerSide.PLAYER_ONE){
+            binding.ivPlayerone.visibility = View.VISIBLE
+        }else if (winner.playerSide == PlayerSide.PLAYER_TWO){
+            binding.ivPlayertwo.visibility = View.VISIBLE
+        }
     }
 
 
