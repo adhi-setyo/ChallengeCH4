@@ -175,14 +175,29 @@ class ComputerEnemySuitGameManager(
             playerOne
         }
         else if (playerOne.playerCharacter != playerTwo.playerCharacter){
+            setPlayerOneCharacter(playerCharacter = PlayerCharacter.ROCK)
+            setPlayerTwoCharacter(playerCharacter = PlayerCharacter.PAPER)
+            playerTwo
+        }
+        else if (playerOne.playerCharacter != playerTwo.playerCharacter){
             setPlayerOneCharacter(playerCharacter = PlayerCharacter.SCISSOR)
             setPlayerTwoCharacter(playerCharacter = PlayerCharacter.PAPER)
             playerOne
         }
-        else{
+        else if (playerOne.playerCharacter == playerTwo.playerCharacter){
+            setPlayerOneCharacter(playerCharacter = PlayerCharacter.SCISSOR)
+            setPlayerTwoCharacter(playerCharacter = PlayerCharacter.ROCK)
+            playerTwo
+        }
+        else if (playerOne.playerCharacter != playerTwo.playerCharacter){
             setPlayerOneCharacter(playerCharacter = PlayerCharacter.PAPER)
             setPlayerTwoCharacter(playerCharacter = PlayerCharacter.ROCK)
             playerOne
+        }
+        else{
+            setPlayerOneCharacter(playerCharacter = PlayerCharacter.PAPER)
+            setPlayerTwoCharacter(playerCharacter = PlayerCharacter.SCISSOR)
+            playerTwo
         }
         setGameState(GameState.FINISHED)
         listener.onGameFinished(gameState, winner)

@@ -138,7 +138,9 @@ class GameActivity : AppCompatActivity(), SuitGameListener {
             binding.ivPlayerone.visibility = View.VISIBLE
         }else if (winner.playerSide == PlayerSide.PLAYER_TWO){
             binding.ivPlayertwo.visibility = View.VISIBLE
-        }
+        }else{
+            binding.ivPlayerone.visibility= View.VISIBLE
+       }
     }
 
 
