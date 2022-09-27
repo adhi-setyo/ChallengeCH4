@@ -39,8 +39,8 @@ class ComputerEnemySuitGameManager(
     }
 
     private fun notifyPlayerDataChanged() {
-        listener.onPlayerStatusChanged(playerOne, getPlayerOneDrawableByState(playerOne.playerState,playerOne.playerCharacter))
-        listener.onPlayerStatusChanged(playerTwo, getPlayerTwoDrawableByState(playerTwo.playerState,playerTwo.playerCharacter))
+        listener.onPlayerStatusChanged(playerOne, getPlayerOneDrawableByState(playerOne.playerCharacter))
+        listener.onPlayerStatusChanged(playerTwo, getPlayerTwoDrawableByState(playerTwo.playerCharacter))
     }
 
     override fun choosePlayerRock() {
@@ -69,81 +69,45 @@ class ComputerEnemySuitGameManager(
 
     private fun setPlayerOneCharacter(
         playerCharacter: PlayerCharacter = playerOne.playerCharacter,
-        playerState: PlayerState = playerOne.playerState,
-       layerPosition: PlayerPosition = playerOne.playerPosition
+        //playerState: PlayerState = playerOne.playerState,
+        //playerPosition: PlayerPosition = playerOne.playerPosition
     ){
         playerOne.apply {
             this.playerCharacter = playerCharacter
-            this.playerState = playerState
-            this.playerPosition = playerPosition
+            //this.playerState = playerState
+            //this.playerPosition = playerPosition
         }
         listener.onPlayerStatusChanged(playerOne,
-            getPlayerOneDrawableByState(playerOne.playerState, playerOne.playerCharacter))
+            getPlayerOneDrawableByState(playerOne.playerCharacter))
     }
 
     private fun setPlayerTwoCharacter(
         playerCharacter: PlayerCharacter = playerTwo.playerCharacter,
-        playerState: PlayerState = playerTwo.playerState,
-        playerPosition: PlayerPosition = playerTwo.playerPosition
+        //playerState: PlayerState = playerTwo.playerState,
+        //playerPosition: PlayerPosition = playerTwo.playerPosition
     ){
         playerOne.apply {
             this.playerCharacter = playerCharacter
-            this.playerState = playerState
-            this.playerPosition = playerPosition
+            //this.playerState = playerState
+            //this.playerPosition = playerPosition
         }
         listener.onPlayerStatusChanged(playerTwo,
-            getPlayerTwoDrawableByState(playerTwo.playerState, playerTwo.playerCharacter))
+            getPlayerTwoDrawableByState(playerTwo.playerCharacter))
     }
 
-    private fun getPlayerOneDrawableByState(playerState: PlayerState, playerCharacter: PlayerCharacter): Int {
-        return when(playerState){
-            PlayerState.IDLE -> {
-                when (playerCharacter) {
-                    PlayerCharacter.ROCK -> R.drawable.batu
-                    PlayerCharacter.PAPER -> R.drawable.kertas
-                    PlayerCharacter.SCISSOR -> R.drawable.gunting
-                }
-            }
-            PlayerState.STARTED -> {
-                when (playerCharacter) {
-                    PlayerCharacter.ROCK -> R.drawable.batu
-                    PlayerCharacter.PAPER -> R.drawable.kertas
-                    PlayerCharacter.SCISSOR -> R.drawable.gunting
-                }
-            }
-            PlayerState.FINISHED -> {
-                when (playerCharacter) {
-                    PlayerCharacter.ROCK -> R.drawable.batu
-                    PlayerCharacter.PAPER -> R.drawable.kertas
-                    PlayerCharacter.SCISSOR -> R.drawable.gunting
-                }
-            }
+    private fun getPlayerOneDrawableByState(playerCharacter: PlayerCharacter): Int {
+        return when (playerCharacter) {
+            PlayerCharacter.ROCK -> R.drawable.batu
+            PlayerCharacter.PAPER -> R.drawable.kertas
+            PlayerCharacter.SCISSOR -> R.drawable.gunting
         }
     }
 
-    private fun getPlayerTwoDrawableByState(playerState: PlayerState, playerCharacter: PlayerCharacter): Int {
-        return when(playerState){
-            PlayerState.IDLE -> {
-                when (playerCharacter) {
-                    PlayerCharacter.ROCK -> R.drawable.batukanan
-                    PlayerCharacter.PAPER -> R.drawable.kertaskanan
-                    PlayerCharacter.SCISSOR -> R.drawable.guntingkanan
-                }
-            }
-            PlayerState.STARTED -> {
-                when (playerCharacter) {
-                    PlayerCharacter.ROCK -> R.drawable.batukanan
-                    PlayerCharacter.PAPER -> R.drawable.kertaskanan
-                    PlayerCharacter.SCISSOR -> R.drawable.guntingkanan
-                }
-            }
-            PlayerState.FINISHED -> {
-                when (playerCharacter) {
-                    PlayerCharacter.ROCK -> R.drawable.batukanan
-                    PlayerCharacter.PAPER -> R.drawable.kertaskanan
-                    PlayerCharacter.SCISSOR -> R.drawable.guntingkanan
-                }
-            }
+    private fun getPlayerTwoDrawableByState (playerCharacter: PlayerCharacter): Int {
+        return when (playerCharacter) {
+            PlayerCharacter.ROCK -> R.drawable.batu
+            PlayerCharacter.PAPER -> R.drawable.kertas
+            PlayerCharacter.SCISSOR -> R.drawable.gunting
         }
     }
 
@@ -169,34 +133,25 @@ class ComputerEnemySuitGameManager(
     }
 
     private fun checkPlayerWinner() {
-        val winner =  if (playerOne.playerCharacter != playerTwo.playerCharacter){
+        val winner = if(playerOne.playerCharacter == playerTwo.playerCharacter){
             setPlayerOneCharacter(playerCharacter = PlayerCharacter.ROCK)
-            setPlayerTwoCharacter(playerCharacter = PlayerCharacter.SCISSOR)
+            setPlayerTwoCharacter(playerCharacter = PlayerCharacter.ROCK)
             playerOne
-        }
-        else if (playerOne.playerCharacter != playerTwo.playerCharacter){
+        }else if(playerOne.playerCharacter < playerTwo.playerCharacter){
             setPlayerOneCharacter(playerCharacter = PlayerCharacter.ROCK)
             setPlayerTwoCharacter(playerCharacter = PlayerCharacter.PAPER)
             playerTwo
-        }
-        else if (playerOne.playerCharacter != playerTwo.playerCharacter){
-            setPlayerOneCharacter(playerCharacter = PlayerCharacter.SCISSOR)
-            setPlayerTwoCharacter(playerCharacter = PlayerCharacter.PAPER)
-            playerOne
-        }
-        else if (playerOne.playerCharacter == playerTwo.playerCharacter){
+        }else if(playerOne.playerCharacter > playerTwo.playerCharacter){
+            setPlayerOneCharacter(playerCharacter = PlayerCharacter.PAPER)
+            setPlayerTwoCharacter(playerCharacter = PlayerCharacter.SCISSOR)
+            playerTwo
+        }else if(playerOne.playerCharacter  < playerTwo.playerCharacter){
             setPlayerOneCharacter(playerCharacter = PlayerCharacter.SCISSOR)
             setPlayerTwoCharacter(playerCharacter = PlayerCharacter.ROCK)
             playerTwo
-        }
-        else if (playerOne.playerCharacter != playerTwo.playerCharacter){
-            setPlayerOneCharacter(playerCharacter = PlayerCharacter.PAPER)
+        }else{
+            setPlayerOneCharacter(playerCharacter = PlayerCharacter.SCISSOR)
             setPlayerTwoCharacter(playerCharacter = PlayerCharacter.ROCK)
-            playerOne
-        }
-        else{
-            setPlayerOneCharacter(playerCharacter = PlayerCharacter.PAPER)
-            setPlayerTwoCharacter(playerCharacter = PlayerCharacter.SCISSOR)
             playerTwo
         }
         setGameState(GameState.FINISHED)
