@@ -133,12 +133,12 @@ class GameActivity : AppCompatActivity(), SuitGameListener {
     }
 
     override fun onGameFinished(gameState: GameState, winner: Player) {
-        if (winner.playerSide == PlayerSide.PLAYER_ONE) {
-            binding.ivDraw.visibility = View.VISIBLE
-        } else if (winner.playerSide == PlayerSide.PLAYER_TWO) {
-            binding.ivPlayertwo.visibility = View.VISIBLE
-        } else{
+        if(winner.playerSide == PlayerSide.PLAYER_ONE){
             binding.ivPlayerone.visibility = View.VISIBLE
+        }else if (winner.playerSide == PlayerSide.PLAYER_TWO){
+            binding.ivPlayertwo.visibility = View.VISIBLE
+        }else if (winner.playerSide == PlayerSide.PLAYER_THREE){
+            binding.ivDraw.visibility = View.VISIBLE
         }
     }
 
