@@ -1,5 +1,7 @@
 package com.adhi.challengech4.ui.game
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,7 +10,8 @@ import android.view.View
 import android.widget.ImageView
 import com.adhi.challengech4.databinding.ActivityGameBinding
 import com.adhi.challengech4.enum.*
-import com.adhi.challengech4.manager.ComputerEnemySuitGameManager
+import com.adhi.challengech4.manager.MultiplerSuitGameManager
+import com.adhi.challengech4.manager.SuitGameManagerImpl
 import com.adhi.challengech4.manager.SuitGameListener
 import com.adhi.challengech4.manager.SuitGameManager
 import com.adhi.challengech4.model.Player
@@ -19,8 +22,16 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
         ActivityGameBinding.inflate(layoutInflater)
     }
 
+    private val isUsingMultiplayerMode: Boolean by lazy {
+        intent.getBooleanExtra(EXTRAS_MULTIPLAYER_MODE,false)
+    }
+
     private val suitGameManager: SuitGameManager by lazy{
-        ComputerEnemySuitGameManager(this)
+        if(isUsingMultiplayerMode){
+            MultiplerSuitGameManager(this)
+        }else{
+            SuitGameManagerImpl(this)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,6 +131,16 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
             PlayerSide.PLAYER_DRAW -> {
                 binding.ivDraw.visibility = View.VISIBLE
             }
+        }
+    }
+
+    companion object {
+        private const val EXTRAS_MULTIPLAYER_MODE = "EXTRAS_MULTIPLAYER_MODE"
+
+        fun startActivity(context: Context, isUsingMultiplayerMode: Boolean) {
+            context.startActivity(Intent(context, GameActivity::class.java).apply {
+                putExtra(EXTRAS_MULTIPLAYER_MODE, isUsingMultiplayerMode)
+            })
         }
     }
 

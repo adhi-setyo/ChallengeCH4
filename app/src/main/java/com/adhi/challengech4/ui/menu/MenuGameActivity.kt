@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.adhi.challengech4.R
 import com.adhi.challengech4.databinding.ActivityMenuGameBinding
+import com.adhi.challengech4.ui.game.GameActivity
 
 class MenuGameActivity : AppCompatActivity() {
 
@@ -21,6 +22,16 @@ class MenuGameActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
         setNameOnDesc()
+        setMenuClickListener()
+    }
+
+    private fun setMenuClickListener(){
+        binding.ivPlayerVsPlayer.setOnClickListener {
+            GameActivity.startActivity(this,true)
+        }
+        binding.ivPlayerVsComp.setOnClickListener {
+            GameActivity.startActivity(this,false)
+        }
     }
 
     private fun setNameOnDesc(){
