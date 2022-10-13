@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import com.adhi.challengech4.databinding.ActivityGameBinding
 import com.adhi.challengech4.enum.*
 import com.adhi.challengech4.manager.MultiplerSuitGameManager
@@ -71,6 +72,7 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
         setChooseCharacter(player)
     }
 
+
     private fun setChooseCharacter(player: Player) {
         val ivRock: ImageView?
         val ivPaper: ImageView?
@@ -117,6 +119,24 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
         binding.ivLeftRock.setBackgroundColor(Color.TRANSPARENT)
         binding.ivLeftPaper.setBackgroundColor(Color.TRANSPARENT)
         binding.ivLeftScissor.setBackgroundColor(Color.TRANSPARENT)
+
+        when(gameState){
+            GameState.IDLE ->{
+                binding.ivVersus.isVisible = true
+            }
+            GameState.STARTED -> {
+                binding.ivVersus.isVisible = true
+            }
+            GameState.FINISHED -> {
+                binding.ivVersus.isVisible = true
+            }
+            GameState.PLAYER_ONE_TURN -> {
+                binding.ivVersus.isVisible = true
+            }
+            GameState.PLAYER_TWO_TURN -> {
+                binding.ivVersus.isVisible = true
+            }
+        }
 
     }
 

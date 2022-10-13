@@ -151,54 +151,54 @@ open class SuitGameManagerImpl(
     }
 
     private fun checkPlayerWinner() {
-       val winner =
+        val winner =
 
-           // Player One Win
-           if(playerOne.playerCharacter.ordinal == 0 && playerTwo.playerCharacter.ordinal == 2){
-            setPlayerOneCharacter(playerCharacter = PlayerCharacter.ROCK)
-            setPlayerTwoCharacter(playerCharacter = PlayerCharacter.SCISSOR)
-            playerOne
-        }else if(playerOne.playerCharacter.ordinal == 1 && playerTwo.playerCharacter.ordinal == 0){
-           setPlayerOneCharacter(playerCharacter = PlayerCharacter.PAPER)
-           setPlayerTwoCharacter(playerCharacter = PlayerCharacter.ROCK)
-           playerOne
-       }else if(playerOne.playerCharacter.ordinal == 2 && playerTwo.playerCharacter.ordinal == 1){
-           setPlayerOneCharacter(playerCharacter = PlayerCharacter.SCISSOR)
-           setPlayerTwoCharacter(playerCharacter = PlayerCharacter.PAPER)
-           playerOne
-       }
+            // Player One Win
+            if(playerOne.playerCharacter.ordinal == 0 && playerTwo.playerCharacter.ordinal == 2){
+                setPlayerOneCharacter(playerCharacter = PlayerCharacter.ROCK)
+                setPlayerTwoCharacter(playerCharacter = PlayerCharacter.SCISSOR)
+                playerOne
+            }else if(playerOne.playerCharacter.ordinal == 1 && playerTwo.playerCharacter.ordinal == 0){
+                setPlayerOneCharacter(playerCharacter = PlayerCharacter.PAPER)
+                setPlayerTwoCharacter(playerCharacter = PlayerCharacter.ROCK)
+                playerOne
+            }else if(playerOne.playerCharacter.ordinal == 2 && playerTwo.playerCharacter.ordinal == 1){
+                setPlayerOneCharacter(playerCharacter = PlayerCharacter.SCISSOR)
+                setPlayerTwoCharacter(playerCharacter = PlayerCharacter.PAPER)
+                playerOne
+            }
 
-           // Player Two Win
-           else if(playerOne.playerCharacter.ordinal == 2 && playerTwo.playerCharacter.ordinal == 0){
-           setPlayerOneCharacter(playerCharacter = PlayerCharacter.SCISSOR)
-           setPlayerTwoCharacter(playerCharacter = PlayerCharacter.ROCK)
-           playerTwo
-        }else if(playerOne.playerCharacter.ordinal == 1 && playerTwo.playerCharacter.ordinal == 2){
-           setPlayerOneCharacter(playerCharacter = PlayerCharacter.PAPER)
-           setPlayerTwoCharacter(playerCharacter = PlayerCharacter.SCISSOR)
-           playerTwo
-       }else if(playerOne.playerCharacter.ordinal == 0 && playerTwo.playerCharacter.ordinal == 1){
-           setPlayerOneCharacter(playerCharacter = PlayerCharacter.ROCK)
-           setPlayerTwoCharacter(playerCharacter = PlayerCharacter.PAPER)
-           playerTwo
-       }
+            // Player Two Win
+            else if(playerOne.playerCharacter.ordinal == 2 && playerTwo.playerCharacter.ordinal == 0){
+                setPlayerOneCharacter(playerCharacter = PlayerCharacter.SCISSOR)
+                setPlayerTwoCharacter(playerCharacter = PlayerCharacter.ROCK)
+                playerTwo
+            }else if(playerOne.playerCharacter.ordinal == 1 && playerTwo.playerCharacter.ordinal == 2){
+                setPlayerOneCharacter(playerCharacter = PlayerCharacter.PAPER)
+                setPlayerTwoCharacter(playerCharacter = PlayerCharacter.SCISSOR)
+                playerTwo
+            }else if(playerOne.playerCharacter.ordinal == 0 && playerTwo.playerCharacter.ordinal == 1){
+                setPlayerOneCharacter(playerCharacter = PlayerCharacter.ROCK)
+                setPlayerTwoCharacter(playerCharacter = PlayerCharacter.PAPER)
+                playerTwo
+            }
 
-           // Player Draw
-           else if(playerOne.playerCharacter.ordinal == 0 && playerTwo.playerCharacter.ordinal == 0) {
-           setPlayerOneCharacter(playerCharacter = PlayerCharacter.ROCK)
-           setPlayerTwoCharacter(playerCharacter = PlayerCharacter.ROCK)
-           playerDraw
-       }else if(playerOne.playerCharacter.ordinal == 1 && playerTwo.playerCharacter.ordinal == 1) {
-           setPlayerOneCharacter(playerCharacter = PlayerCharacter.PAPER)
-           setPlayerTwoCharacter(playerCharacter = PlayerCharacter.PAPER)
-           playerDraw
-       }else if(playerOne.playerCharacter.ordinal == 2 && playerTwo.playerCharacter.ordinal == 2) {
-           setPlayerOneCharacter(playerCharacter = PlayerCharacter.SCISSOR)
-           setPlayerTwoCharacter(playerCharacter = PlayerCharacter.SCISSOR)
-           playerDraw
-       }else{
-           return
-       }
+            // Player Draw
+            else if(playerOne.playerCharacter.ordinal == 0 && playerTwo.playerCharacter.ordinal == 0) {
+                setPlayerOneCharacter(playerCharacter = PlayerCharacter.ROCK)
+                setPlayerTwoCharacter(playerCharacter = PlayerCharacter.ROCK)
+                playerDraw
+            }else if(playerOne.playerCharacter.ordinal == 1 && playerTwo.playerCharacter.ordinal == 1) {
+                setPlayerOneCharacter(playerCharacter = PlayerCharacter.PAPER)
+                setPlayerTwoCharacter(playerCharacter = PlayerCharacter.PAPER)
+                playerDraw
+            }else if(playerOne.playerCharacter.ordinal == 2 && playerTwo.playerCharacter.ordinal == 2) {
+                setPlayerOneCharacter(playerCharacter = PlayerCharacter.SCISSOR)
+                setPlayerTwoCharacter(playerCharacter = PlayerCharacter.SCISSOR)
+                playerDraw
+            }else{
+                return
+            }
         setGameState(GameState.FINISHED)
         listener.onGameFinished(state,winner)
     }
