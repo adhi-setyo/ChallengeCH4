@@ -3,5 +3,5 @@ package com.adhi.challengech4.enum
 enum class PlayerSide {
     PLAYER_ONE,
     PLAYER_TWO,
-    PLAYER_THREE
+    PLAYER_DRAW
 }

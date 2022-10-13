@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">ChallengeCH4</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_display">Tuliskan namamu dibawah</string>
+    <string name="your_name">Your Name</string>
+    <string name="text_landing">This message for landing page</string>
+    <string name="play_with_player">Bermain Suit Melawan Sesama Pemain</string>
+    <string name="versus_player">Bermain Suit Melawan Sesama Pemain</string>
+    <string name="versus_comp">Bermain Suit Melawan Komputer</string>
+    <string name="text_previous">Previous</string>
+    <string name="text_next">Next</string>
+    <string name="title_activity_menu_game">MenuGameActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="text_desc">Tuliskan namamu di bawah</string>
+    <string name="input_name">Your Name</string>
+    <string name="text_desc_onboarding_1">Bermain suit melawan sesama pemain</string>
+    <string name="text_desc_onboarding_2">Bermain suit melawan komputer</string>
+    <string name="title_activity_chosee_menu">ChoseeMenuActivity</string>
 </resources>
