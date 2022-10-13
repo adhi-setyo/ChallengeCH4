@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import com.adhi.challengech4.R
 import com.adhi.challengech4.ui.game.GameActivity
+import com.adhi.challengech4.ui.onboarding.OnBoardingActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -30,7 +31,7 @@ class SplashActivity : AppCompatActivity() {
         timer = object : CountDownTimer(2000,1000){
             override fun onTick(millisUntilFinished: Long) {}
             override fun onFinish() {
-                val intent = Intent(this@SplashActivity, GameActivity::class.java)
+                val intent = Intent(this@SplashActivity, OnBoardingActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 finish()

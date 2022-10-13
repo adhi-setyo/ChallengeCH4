@@ -27,6 +27,9 @@
         <activity
             android:name=".ui.game.GameActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.onboarding.OnBoardingActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -18,12 +18,11 @@ class EnterNameFragment : Fragment(), OnFinishNavigateListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentEnterNameBinding.inflate(layoutInflater, container, false)
+        binding = FragmentEnterNameBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onFinishNavigateListener() {
-
         val name = binding.etName.text.toString().trim()
         if(name.isEmpty()){
             Toast.makeText(requireContext(),"Please input your name:",Toast.LENGTH_SHORT).show()
