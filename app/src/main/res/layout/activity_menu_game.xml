@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.menu.MenuGameActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_choose_play"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_title_menu"
+            android:textAlignment="center"
+            android:textSize="@dimen/_20ssp"
+            android:textAllCaps="true"
+            android:layout_marginTop="@dimen/_100sdp"/>
+
+        <ImageView
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:src="@drawable/ic_landing_page1"
+            android:layout_marginLeft="@dimen/_105sdp"
+            android:layout_marginRight="@dimen/_105sdp"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+        <TextView
+            android:id="@+id/tv_desc_player"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_desc_player_1"
+            android:textAlignment="center"
+            android:textSize="@dimen/_17ssp"
+            android:textAllCaps="true"/>
+
+        <ImageView
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:src="@drawable/ic_landing_page2"
+            android:layout_marginLeft="@dimen/_105sdp"
+            android:layout_marginRight="@dimen/_105sdp"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+        <TextView
+            android:id="@+id/tv_desc_comp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_desc_player_2"
+            android:textAlignment="center"
+            android:textSize="@dimen/_17ssp"
+            android:textAllCaps="true"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

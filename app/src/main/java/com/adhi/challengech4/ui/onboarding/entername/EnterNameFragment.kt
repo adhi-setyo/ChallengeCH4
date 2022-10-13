@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.adhi.challengech4.R
 import com.adhi.challengech4.databinding.FragmentEnterNameBinding
+import com.adhi.challengech4.ui.menu.MenuGameActivity
 import com.adhi.challengech4.ui.onboarding.OnFinishNavigateListener
 
 class EnterNameFragment : Fragment(), OnFinishNavigateListener {
@@ -27,12 +28,12 @@ class EnterNameFragment : Fragment(), OnFinishNavigateListener {
         if(name.isEmpty()){
             Toast.makeText(requireContext(),"Please input your name:",Toast.LENGTH_SHORT).show()
         }else{
-            navigateToMenu()
+            navigateToMenu(name)
         }
     }
 
 
-    private fun navigateToMenu() {
-
+    private fun navigateToMenu(name: String) {
+        MenuGameActivity.startActivity(requireContext(),name)
     }
 }

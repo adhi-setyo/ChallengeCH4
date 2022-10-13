@@ -25,4 +25,9 @@
     <string name="text_desc_onboarding_1">Bermain suit melawan sesama pemain</string>
     <string name="text_desc_onboarding_2">Bermain suit melawan komputer</string>
     <string name="title_activity_chosee_menu">ChoseeMenuActivity</string>
+    <string name="text_title_menu">pilih lawanmu</string>
+    <string name="text_desc_player_1">Adhi VS Player</string>
+    <string name="text_desc_player_2">adhi vs comp</string>
+    <string name="placeholder_desc_menu_player">%s vs player</string>
+    <string name="placeholder_desc_menu_comp">%s vs comp</string>
 </resources>
