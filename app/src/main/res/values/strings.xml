@@ -30,6 +30,7 @@
     <string name="text_desc_player_2">adhi vs comp</string>
     <string name="placeholder_desc_menu_player">%s vs player</string>
     <string name="placeholder_desc_menu_comp">%s vs comp</string>
+    <string name="placeholder_player_1">%s</string>
     <string name="text_title_dialog">Hasil Permainan</string>
     <string name="text_winner">Player \n Menang!!</string>
     <string name="text_play_again">Main Lagi</string>

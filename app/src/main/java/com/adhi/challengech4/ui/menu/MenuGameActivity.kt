@@ -7,6 +7,7 @@ import android.os.Bundle
 import com.adhi.challengech4.R
 import com.adhi.challengech4.databinding.ActivityMenuGameBinding
 import com.adhi.challengech4.ui.game.GameActivity
+import com.adhi.challengech4.ui.onboarding.entername.EnterNameFragment
 
 class MenuGameActivity : AppCompatActivity() {
 

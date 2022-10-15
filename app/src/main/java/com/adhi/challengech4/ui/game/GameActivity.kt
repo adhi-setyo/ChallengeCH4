@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -22,6 +23,7 @@ import com.adhi.challengech4.manager.SuitGameManager
 import com.adhi.challengech4.model.Player
 import com.adhi.challengech4.ui.dialog.OnMenuSelectedListener
 import com.adhi.challengech4.ui.dialog.ResultDialogFragment
+import com.adhi.challengech4.ui.menu.MenuGameActivity
 
 class GameActivity : AppCompatActivity(), SuitGameListener{
 
@@ -173,57 +175,42 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
     override fun onGameFinished(gameState: GameState, winner: Player) {
         when (winner.playerSide) {
             PlayerSide.PLAYER_ONE -> {
-                //binding.ivPlayerone.visibility = View.VISIBLE
-                ResultDialogFragment().apply {
-                    setOnMenuSelectedListener(object : OnMenuSelectedListener{
-                        override fun onPlayAgain(dialog: DialogFragment) {
-                            dialog.dismiss()
-                            Toast.makeText(context,"Play Again Please!!!", Toast.LENGTH_SHORT).show()
-                        }
-
-                        override fun onBacToMenu(dialog: DialogFragment) {
-                            Toast.makeText(context,"Back To Menu!!!", Toast.LENGTH_SHORT).show()
-                        }
-                    })
-                }.show(supportFragmentManager,null)
+                onSelectedMenu()
             }
             PlayerSide.PLAYER_TWO -> {
-               // binding.ivPlayertwo.visibility = View.VISIBLE
-                ResultDialogFragment().apply {
-                    setOnMenuSelectedListener(object : OnMenuSelectedListener{
-                        override fun onPlayAgain(dialog: DialogFragment) {
-                            dialog.dismiss()
-                            Toast.makeText(context,"Play Again Please!!!", Toast.LENGTH_SHORT).show()
-                        }
+                onSelectedMenu()
 
-                        override fun onBacToMenu(dialog: DialogFragment) {
-                            Toast.makeText(context,"Back To Menu!!!", Toast.LENGTH_SHORT).show()
-                        }
-                    })
-                }.show(supportFragmentManager,null)
             }
             PlayerSide.PLAYER_DRAW -> {
-                //binding.ivDraw.visibility = View.VISIBLE
-                ResultDialogFragment().apply {
-                    setOnMenuSelectedListener(object : OnMenuSelectedListener{
-                        override fun onPlayAgain(dialog: DialogFragment) {
-                            dialog.dismiss()
-                            Toast.makeText(context,"Play Again Please!!!", Toast.LENGTH_SHORT).show()
-                        }
-
-                        override fun onBacToMenu(dialog: DialogFragment) {
-                            Toast.makeText(context,"Back To Menu!!!", Toast.LENGTH_SHORT).show()
-                        }
-                    })
-                }.show(supportFragmentManager,null)
+                onSelectedMenu()
             }
         }
+    }
+
+    private fun onSelectedMenu(){
+        ResultDialogFragment().apply {
+            setOnMenuSelectedListener(object : OnMenuSelectedListener{
+                override fun onPlayAgain(dialog: DialogFragment) {
+                    dialog.dismiss()
+                    suitGameManager.startOrResetGame()
+                    Toast.makeText(context,"Play Again Please!!!", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onBacToMenu(dialog: DialogFragment) {
+                    val intent = Intent(requireContext(),MenuGameActivity::class.java)
+                    startActivity(intent)
+                    Toast.makeText(context,"Back To Menu!!!", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }.show(supportFragmentManager,null)
     }
 
 
 
     companion object {
         private const val EXTRAS_MULTIPLAYER_MODE = "EXTRAS_MULTIPLAYER_MODE"
+
+
 
         fun startActivity(context: Context, isUsingMultiplayerMode: Boolean) {
             context.startActivity(Intent(context, GameActivity::class.java).apply {

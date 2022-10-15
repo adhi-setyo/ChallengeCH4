@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.adhi.challengech4.R
 import com.adhi.challengech4.databinding.FragmentResultDialogBinding
+import com.adhi.challengech4.enum.PlayerSide
+import com.adhi.challengech4.model.Player
 
 class ResultDialogFragment : DialogFragment() {
 

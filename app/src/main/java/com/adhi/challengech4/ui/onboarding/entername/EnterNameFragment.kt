@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.adhi.challengech4.R
 import com.adhi.challengech4.databinding.FragmentEnterNameBinding
+import com.adhi.challengech4.ui.game.GameActivity
 import com.adhi.challengech4.ui.menu.MenuGameActivity
 import com.adhi.challengech4.ui.onboarding.OnFinishNavigateListener
 
