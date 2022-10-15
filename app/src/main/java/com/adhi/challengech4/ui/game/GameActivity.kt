@@ -8,7 +8,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
+import com.adhi.challengech4.R
 import com.adhi.challengech4.databinding.ActivityGameBinding
 import com.adhi.challengech4.enum.*
 import com.adhi.challengech4.manager.MultiplerSuitGameManager
@@ -16,6 +20,8 @@ import com.adhi.challengech4.manager.SuitGameManagerImpl
 import com.adhi.challengech4.manager.SuitGameListener
 import com.adhi.challengech4.manager.SuitGameManager
 import com.adhi.challengech4.model.Player
+import com.adhi.challengech4.ui.dialog.OnMenuSelectedListener
+import com.adhi.challengech4.ui.dialog.ResultDialogFragment
 
 class GameActivity : AppCompatActivity(), SuitGameListener{
 
@@ -44,39 +50,51 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
     }
 
     private fun setOnClickListener() {
-        binding.ivLeftRock.setOnClickListener{
+        val color = ContextCompat.getColor(this,R.color.purple_200)
+
+       binding.ivArrowUp.setOnClickListener {
             suitGameManager.choosePlayerRock()
-            Log.d("Button", "Rock Character")
-            binding.ivLeftRock.setBackgroundColor(Color.GRAY)
         }
-        binding.ivLeftPaper.setOnClickListener{
-            suitGameManager.choosePlayerPaper()
-            Log.d("Button", "Paper Character")
-            binding.ivLeftPaper.setBackgroundColor(Color.GRAY)
-        }
-        binding.ivLeftScissor.setOnClickListener{
+        binding.ivArrowDown.setOnClickListener {
             suitGameManager.choosePlayerScissor()
-            Log.d("Button", "Scissor Character")
-            binding.ivLeftScissor.setBackgroundColor(Color.GRAY)
         }
-        binding.ivRefresh.setOnClickListener{
+
+        /*
+        binding.ivLeftRock.setOnClickListener {
+            suitGameManager.choosePlayerRock()
+            binding.ivLeftRock.setBackgroundColor(color)
+
+        }
+        binding.ivLeftPaper.setOnClickListener {
+            suitGameManager.choosePlayerPaper()
+        }
+        binding.ivLeftScissor.setOnClickListener {
+            suitGameManager.choosePlayerScissor()
+        }
+        binding.ivRightRock.setOnClickListener {
+            suitGameManager.choosePlayerRock()
+        }
+        binding.ivRightPaper.setOnClickListener {
+            suitGameManager.choosePlayerPaper()
+        }
+        binding.ivRightScissor.setOnClickListener {
+            suitGameManager.choosePlayerScissor()
+        }*/
+        binding.ivRefresh.setOnClickListener {
             suitGameManager.startOrResetGame()
-            Log.d("Button", "For Reset Game")
-            binding.ivRightRock.setBackgroundColor(Color.TRANSPARENT)
-            binding.ivRightPaper.setBackgroundColor(Color.TRANSPARENT)
-            binding.ivRightScissor.setBackgroundColor(Color.TRANSPARENT)
         }
     }
 
     override fun onPlayerStatusChanged(player: Player, iconDrawable: Int) {
-        setChooseCharacter(player)
+        setChooseCharacter(player,iconDrawable)
     }
 
 
-    private fun setChooseCharacter(player: Player) {
+    private fun setChooseCharacter(player: Player, iconDrawable: Int) {
         val ivRock: ImageView?
         val ivPaper: ImageView?
         val ivScissor: ImageView?
+        val drawable = ContextCompat.getDrawable(this, iconDrawable)
 
         if (player.playerSide == PlayerSide.PLAYER_ONE) {
             ivRock = binding.ivLeftRock
@@ -88,26 +106,29 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
             ivScissor = binding.ivRightScissor
         }
 
-         when(player.playerCharacter) {
-             PlayerCharacter.ROCK -> {
-                 ivRock.visibility = View.VISIBLE
-                 ivPaper.visibility = View.VISIBLE
-                 ivScissor.visibility = View.VISIBLE
-                 ivRock.setBackgroundColor(Color.GRAY)
-             }
-             PlayerCharacter.PAPER -> {
-                 ivRock.visibility = View.VISIBLE
-                 ivPaper.visibility = View.VISIBLE
-                 ivScissor.visibility = View.VISIBLE
-                 ivPaper.setBackgroundColor(Color.GRAY)
-             }
-             PlayerCharacter.SCISSOR -> {
-                 ivRock.visibility = View.VISIBLE
-                 ivPaper.visibility = View.VISIBLE
-                 ivScissor.visibility = View.VISIBLE
-                 ivScissor.setBackgroundColor(Color.GRAY)
-             }
-         }
+
+                when(player.playerCharacter) {
+                    PlayerCharacter.ROCK -> {
+                                ivRock.visibility = View.VISIBLE
+                                ivPaper.visibility = View.INVISIBLE
+                                ivScissor.visibility = View.INVISIBLE
+                                ivRock.setImageDrawable(drawable)
+                            }
+                    PlayerCharacter.PAPER -> {
+                                ivRock.visibility = View.INVISIBLE
+                                ivPaper.visibility = View.VISIBLE
+                                ivScissor.visibility = View.INVISIBLE
+                                ivPaper.setImageDrawable(drawable)
+                            }
+                    PlayerCharacter.SCISSOR -> {
+                                ivRock.visibility = View.INVISIBLE
+                                ivPaper.visibility = View.INVISIBLE
+                                ivScissor.visibility = View.VISIBLE
+                                ivScissor.setImageDrawable(drawable)
+                            }
+                    }
+
+
     }
 
     override fun onGameChanged(gameState: GameState) {
@@ -115,44 +136,91 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
         binding.ivPlayertwo.visibility=View.INVISIBLE
         binding.ivDraw.visibility=View.INVISIBLE
 
-        //left
         binding.ivLeftRock.setBackgroundColor(Color.TRANSPARENT)
         binding.ivLeftPaper.setBackgroundColor(Color.TRANSPARENT)
         binding.ivLeftScissor.setBackgroundColor(Color.TRANSPARENT)
 
-        when(gameState){
-            GameState.IDLE ->{
+
+        when (gameState) {
+            GameState.IDLE -> {
                 binding.ivVersus.isVisible = true
+                setCharacterVisibility(isPlayerOneVisible = true, isPlayerTwoVisible = true)
             }
             GameState.STARTED -> {
                 binding.ivVersus.isVisible = true
+                setCharacterVisibility(isPlayerOneVisible = true, isPlayerTwoVisible = true)
             }
             GameState.FINISHED -> {
                 binding.ivVersus.isVisible = true
+                setCharacterVisibility(isPlayerOneVisible = true, isPlayerTwoVisible = true)
             }
             GameState.PLAYER_ONE_TURN -> {
                 binding.ivVersus.isVisible = true
+                setCharacterVisibility(isPlayerOneVisible = true, isPlayerTwoVisible = false)
             }
             GameState.PLAYER_TWO_TURN -> {
                 binding.ivVersus.isVisible = true
+                setCharacterVisibility(isPlayerOneVisible = false, isPlayerTwoVisible = true)
             }
         }
+    }
 
+    private fun setCharacterVisibility(isPlayerOneVisible: Boolean, isPlayerTwoVisible: Boolean) {
+        binding.llPlayerleft.isVisible = isPlayerOneVisible
+        binding.llPlayerright.isVisible = isPlayerTwoVisible
     }
 
     override fun onGameFinished(gameState: GameState, winner: Player) {
         when (winner.playerSide) {
             PlayerSide.PLAYER_ONE -> {
-                binding.ivPlayerone.visibility = View.VISIBLE
+                //binding.ivPlayerone.visibility = View.VISIBLE
+                ResultDialogFragment().apply {
+                    setOnMenuSelectedListener(object : OnMenuSelectedListener{
+                        override fun onPlayAgain(dialog: DialogFragment) {
+                            dialog.dismiss()
+                            Toast.makeText(context,"Play Again Please!!!", Toast.LENGTH_SHORT).show()
+                        }
+
+                        override fun onBacToMenu(dialog: DialogFragment) {
+                            Toast.makeText(context,"Back To Menu!!!", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }.show(supportFragmentManager,null)
             }
             PlayerSide.PLAYER_TWO -> {
-                binding.ivPlayertwo.visibility = View.VISIBLE
+               // binding.ivPlayertwo.visibility = View.VISIBLE
+                ResultDialogFragment().apply {
+                    setOnMenuSelectedListener(object : OnMenuSelectedListener{
+                        override fun onPlayAgain(dialog: DialogFragment) {
+                            dialog.dismiss()
+                            Toast.makeText(context,"Play Again Please!!!", Toast.LENGTH_SHORT).show()
+                        }
+
+                        override fun onBacToMenu(dialog: DialogFragment) {
+                            Toast.makeText(context,"Back To Menu!!!", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }.show(supportFragmentManager,null)
             }
             PlayerSide.PLAYER_DRAW -> {
-                binding.ivDraw.visibility = View.VISIBLE
+                //binding.ivDraw.visibility = View.VISIBLE
+                ResultDialogFragment().apply {
+                    setOnMenuSelectedListener(object : OnMenuSelectedListener{
+                        override fun onPlayAgain(dialog: DialogFragment) {
+                            dialog.dismiss()
+                            Toast.makeText(context,"Play Again Please!!!", Toast.LENGTH_SHORT).show()
+                        }
+
+                        override fun onBacToMenu(dialog: DialogFragment) {
+                            Toast.makeText(context,"Back To Menu!!!", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }.show(supportFragmentManager,null)
             }
         }
     }
+
+
 
     companion object {
         private const val EXTRAS_MULTIPLAYER_MODE = "EXTRAS_MULTIPLAYER_MODE"

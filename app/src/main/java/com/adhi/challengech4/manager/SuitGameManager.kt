@@ -15,7 +15,7 @@ interface SuitGameManager {
 }
 
 interface SuitGameListener{
-    fun onPlayerStatusChanged(player: Player, iconDrawable: Int)
+    fun onPlayerStatusChanged(player: Player, iconDrawableRes: Int)
     fun onGameChanged(gameState: GameState)
     fun onGameFinished(gameState: GameState, winner: Player)
 
@@ -32,60 +32,70 @@ open class SuitGameManagerImpl(
 
     override fun initGame() {
         setGameState(GameState.IDLE)
-        playerOne = Player(PlayerSide.PLAYER_ONE, PlayerState.IDLE, PlayerPosition.MIDDLE, PlayerCharacter.PAPER)
-        playerTwo = Player(PlayerSide.PLAYER_TWO, PlayerState.IDLE, PlayerPosition.MIDDLE, PlayerCharacter.PAPER)
-        playerDraw = Player(PlayerSide.PLAYER_DRAW, PlayerState.IDLE, PlayerPosition.MIDDLE, PlayerCharacter.PAPER)
+        playerOne = Player(PlayerSide.PLAYER_ONE, PlayerState.IDLE, PlayerCharacter.PAPER)
+        playerTwo = Player(PlayerSide.PLAYER_TWO, PlayerState.IDLE, PlayerCharacter.PAPER)
+        playerDraw = Player(PlayerSide.PLAYER_DRAW, PlayerState.IDLE, PlayerCharacter.PAPER)
         notifyPlayerDataChanged()
         setGameState(GameState.STARTED)
     }
 
     private fun notifyPlayerDataChanged() {
-        listener.onPlayerStatusChanged(playerOne, getPlayerOneDrawableByState(playerOne.playerCharacter, playerOne.playerState))
-        listener.onPlayerStatusChanged(playerTwo, getPlayerTwoDrawableByState(playerTwo.playerCharacter, playerTwo.playerState))
+        listener.onPlayerStatusChanged(playerOne,
+            getPlayerOneDrawableByState(playerOne.playerCharacter, playerOne.playerState))
+        listener.onPlayerStatusChanged(playerTwo,
+            getPlayerTwoDrawableByState(playerTwo.playerCharacter, playerTwo.playerState))
     }
 
     override fun choosePlayerRock() {
-        if(state != GameState.FINISHED && playerOne.playerCharacter.ordinal  > PlayerCharacter.ROCK.ordinal){
+        if(state != GameState.FINISHED &&
+            playerOne.playerCharacter.ordinal  > PlayerCharacter.ROCK.ordinal){
             val currentIndex = playerOne.playerCharacter.ordinal
-            setPlayerOneCharacter(getPlayerCharacterByOrdinal(currentIndex -1))
-            startGame()
+            setPlayerOneCharacter(getPlayerCharacterByOrdinal(currentIndex -1),PlayerState.IDLE)
         }
     }
 
     override fun choosePlayerPaper() {
-        if(state != GameState.FINISHED && playerOne.playerCharacter.ordinal == PlayerCharacter.PAPER.ordinal){
+        if(state != GameState.FINISHED &&
+            playerOne.playerCharacter.ordinal == PlayerCharacter.PAPER.ordinal){
             val currentIndex = playerOne.playerCharacter.ordinal
             setPlayerOneCharacter(getPlayerCharacterByOrdinal(currentIndex))
-            startGame()
         }
     }
 
     override fun choosePlayerScissor() {
-        if(state != GameState.FINISHED && playerOne.playerCharacter.ordinal < PlayerCharacter.SCISSOR.ordinal){
+        if(state != GameState.FINISHED &&
+            playerOne.playerCharacter.ordinal < PlayerCharacter.SCISSOR.ordinal){
             val currentIndex = playerOne.playerCharacter.ordinal
-            setPlayerOneCharacter(getPlayerCharacterByOrdinal(currentIndex +1))
-            startGame()
+            setPlayerOneCharacter(getPlayerCharacterByOrdinal(currentIndex +1),PlayerState.IDLE)
         }
     }
 
     protected fun setPlayerOneCharacter(
         playerCharacter: PlayerCharacter = playerOne.playerCharacter,
-    ){
+        playerState: PlayerState = playerOne.playerState
+    ) {
         playerOne.apply {
             this.playerCharacter = playerCharacter
+            this.playerState = playerState
         }
-        listener.onPlayerStatusChanged(playerOne,
-            getPlayerOneDrawableByState(playerOne.playerCharacter, playerOne.playerState))
+        listener.onPlayerStatusChanged(
+            playerOne,
+            getPlayerOneDrawableByState(playerOne.playerCharacter ,playerOne.playerState)
+        )
     }
 
     protected fun setPlayerTwoCharacter(
         playerCharacter: PlayerCharacter = playerTwo.playerCharacter,
-    ){
-        playerOne.apply {
+        playerState: PlayerState = playerTwo.playerState
+    ) {
+        playerTwo.apply {
             this.playerCharacter = playerCharacter
+            this.playerState = playerState
         }
-        listener.onPlayerStatusChanged(playerTwo,
-            getPlayerTwoDrawableByState(playerTwo.playerCharacter, playerTwo.playerState))
+        listener.onPlayerStatusChanged(
+            playerTwo,
+            getPlayerOneDrawableByState(playerTwo.playerCharacter ,playerTwo.playerState)
+        )
     }
 
     private fun getPlayerOneDrawableByState(playerCharacter: PlayerCharacter, playerState: PlayerState): Int {
@@ -228,44 +238,44 @@ class MultiplerSuitGameManager(listener: SuitGameListener):SuitGameManagerImpl(l
     }
 
     override fun choosePlayerRock() {
-        if(state == GameState.PLAYER_ONE_TURN){
+        if (state == GameState.PLAYER_ONE_TURN) {
             super.choosePlayerRock()
-        }else if(state == GameState.PLAYER_TWO_TURN){
-            if(playerTwo.playerCharacter.ordinal  > PlayerCharacter.ROCK.ordinal){
+        } else if (state == GameState.PLAYER_TWO_TURN) {
+            if (playerTwo.playerCharacter.ordinal > PlayerPosition.TOP.ordinal) {
                 val currentIndex = playerTwo.playerCharacter.ordinal
-                setPlayerTwoCharacter(getPlayerCharacterByOrdinal(currentIndex -1))
+                setPlayerTwoCharacter(getPlayerCharacterByOrdinal(currentIndex - 1), PlayerState.IDLE)
                 startGame()
             }
         }
     }
 
     override fun choosePlayerPaper() {
-        if(state == GameState.PLAYER_ONE_TURN){
+        if (state == GameState.PLAYER_ONE_TURN) {
             super.choosePlayerPaper()
-        }else if(state == GameState.PLAYER_TWO_TURN){
-            if(playerTwo.playerCharacter.ordinal < PlayerCharacter.SCISSOR.ordinal){
+        } else if (state == GameState.PLAYER_TWO_TURN) {
+            if (playerTwo.playerCharacter.ordinal == PlayerPosition.TOP.ordinal) {
                 val currentIndex = playerTwo.playerCharacter.ordinal
-                setPlayerTwoCharacter(getPlayerCharacterByOrdinal(currentIndex +1))
+                setPlayerTwoCharacter(getPlayerCharacterByOrdinal(currentIndex), PlayerState.IDLE)
                 startGame()
             }
         }
     }
 
     override fun choosePlayerScissor() {
-        if(state == GameState.PLAYER_ONE_TURN){
+        if (state == GameState.PLAYER_ONE_TURN) {
             super.choosePlayerScissor()
-        }else if(state == GameState.PLAYER_TWO_TURN){
-            if(playerTwo.playerCharacter.ordinal < PlayerCharacter.SCISSOR.ordinal){
+        } else if (state == GameState.PLAYER_TWO_TURN) {
+            if (playerTwo.playerCharacter.ordinal < PlayerPosition.BOTTOM.ordinal) {
                 val currentIndex = playerTwo.playerCharacter.ordinal
-                setPlayerTwoCharacter(getPlayerCharacterByOrdinal(currentIndex +1))
+                setPlayerTwoCharacter(getPlayerCharacterByOrdinal(currentIndex + 1), PlayerState.IDLE)
                 startGame()
             }
         }
     }
 
     override fun startOrResetGame() {
-        when(state){
-            GameState.PLAYER_ONE_TURN->{
+        when (state) {
+            GameState.PLAYER_ONE_TURN -> {
                 setGameState(GameState.PLAYER_TWO_TURN)
             }
             GameState.PLAYER_TWO_TURN -> {
@@ -277,4 +287,5 @@ class MultiplerSuitGameManager(listener: SuitGameListener):SuitGameManagerImpl(l
             else -> return
         }
     }
+
 }

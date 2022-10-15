@@ -8,6 +8,6 @@ import com.adhi.challengech4.enum.PlayerState
 data class Player(
     val playerSide: PlayerSide,
     var playerState: PlayerState,
-    var playerPosition: PlayerPosition,
+    //var playerPosition: PlayerPosition,
     var playerCharacter : PlayerCharacter
 )
