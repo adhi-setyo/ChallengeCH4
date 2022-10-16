@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.adhi.challengech4.R
 import com.adhi.challengech4.databinding.FragmentResultDialogBinding
-import com.adhi.challengech4.enum.PlayerSide
-import com.adhi.challengech4.model.Player
+import com.adhi.challengech4.ui.game.GameActivity
 
 class ResultDialogFragment : DialogFragment() {
 
@@ -42,5 +40,4 @@ class ResultDialogFragment : DialogFragment() {
 interface OnMenuSelectedListener {
     fun onPlayAgain(dialog : DialogFragment)
     fun onBacToMenu(dialog : DialogFragment)
-
 }

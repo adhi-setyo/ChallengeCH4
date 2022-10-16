@@ -28,10 +28,10 @@ class MenuGameActivity : AppCompatActivity() {
 
     private fun setMenuClickListener(){
         binding.ivPlayerVsPlayer.setOnClickListener {
-            GameActivity.startActivity(this,true)
+            GameActivity.startActivity(this,true, getString(R.string.placeholder_player_1,name))
         }
         binding.ivPlayerVsComp.setOnClickListener {
-            GameActivity.startActivity(this,false)
+            GameActivity.startActivity(this,false, getString(R.string.placeholder_player_1,name))
         }
     }
 

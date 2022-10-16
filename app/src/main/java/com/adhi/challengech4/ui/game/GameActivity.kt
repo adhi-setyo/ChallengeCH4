@@ -35,6 +35,10 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
         intent.getBooleanExtra(EXTRAS_MULTIPLAYER_MODE,false)
     }
 
+    private val name: String? by lazy {
+        intent.getStringExtra(EXTRA_NAME)
+    }
+
     private val suitGameManager: SuitGameManager by lazy{
         if(isUsingMultiplayerMode){
             MultiplerSuitGameManager(this)
@@ -49,39 +53,16 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
         supportActionBar?.hide()
         suitGameManager.initGame()
         setOnClickListener()
+        binding.tvPlayerSide1.text = getString(R.string.placeholder_player_1, name)
     }
 
     private fun setOnClickListener() {
-        val color = ContextCompat.getColor(this,R.color.purple_200)
-
        binding.ivArrowUp.setOnClickListener {
             suitGameManager.choosePlayerRock()
         }
         binding.ivArrowDown.setOnClickListener {
             suitGameManager.choosePlayerScissor()
         }
-
-        /*
-        binding.ivLeftRock.setOnClickListener {
-            suitGameManager.choosePlayerRock()
-            binding.ivLeftRock.setBackgroundColor(color)
-
-        }
-        binding.ivLeftPaper.setOnClickListener {
-            suitGameManager.choosePlayerPaper()
-        }
-        binding.ivLeftScissor.setOnClickListener {
-            suitGameManager.choosePlayerScissor()
-        }
-        binding.ivRightRock.setOnClickListener {
-            suitGameManager.choosePlayerRock()
-        }
-        binding.ivRightPaper.setOnClickListener {
-            suitGameManager.choosePlayerPaper()
-        }
-        binding.ivRightScissor.setOnClickListener {
-            suitGameManager.choosePlayerScissor()
-        }*/
         binding.ivRefresh.setOnClickListener {
             suitGameManager.startOrResetGame()
         }
@@ -173,15 +154,20 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
     }
 
     override fun onGameFinished(gameState: GameState, winner: Player) {
+        val result:String
+
         when (winner.playerSide) {
             PlayerSide.PLAYER_ONE -> {
+                result = "$name \n Menang"
                 onSelectedMenu()
             }
             PlayerSide.PLAYER_TWO -> {
+                result ="Player 2 \n Menang"
                 onSelectedMenu()
 
             }
             PlayerSide.PLAYER_DRAW -> {
+                result = "Player Draw"
                 onSelectedMenu()
             }
         }
@@ -189,6 +175,7 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
 
     private fun onSelectedMenu(){
         ResultDialogFragment().apply {
+
             setOnMenuSelectedListener(object : OnMenuSelectedListener{
                 override fun onPlayAgain(dialog: DialogFragment) {
                     dialog.dismiss()
@@ -197,8 +184,7 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
                 }
 
                 override fun onBacToMenu(dialog: DialogFragment) {
-                    val intent = Intent(requireContext(),MenuGameActivity::class.java)
-                    startActivity(intent)
+                    MenuGameActivity.startActivity(this@GameActivity, name.toString())
                     Toast.makeText(context,"Back To Menu!!!", Toast.LENGTH_SHORT).show()
                 }
             })
@@ -209,14 +195,15 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
 
     companion object {
         private const val EXTRAS_MULTIPLAYER_MODE = "EXTRAS_MULTIPLAYER_MODE"
+        private const val EXTRA_NAME = "EXTRA_NAME"
 
-
-
-        fun startActivity(context: Context, isUsingMultiplayerMode: Boolean) {
+        fun startActivity(context: Context, isUsingMultiplayerMode: Boolean,name: String) {
             context.startActivity(Intent(context, GameActivity::class.java).apply {
                 putExtra(EXTRAS_MULTIPLAYER_MODE, isUsingMultiplayerMode)
+                putExtra(EXTRA_NAME,name)
             })
         }
+
     }
 
 }
