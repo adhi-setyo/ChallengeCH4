@@ -2,14 +2,12 @@ package com.adhi.challengech4.ui.game
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
@@ -20,9 +18,10 @@ import com.adhi.challengech4.manager.MultiplerSuitGameManager
 import com.adhi.challengech4.manager.SuitGameManagerImpl
 import com.adhi.challengech4.manager.SuitGameListener
 import com.adhi.challengech4.manager.SuitGameManager
+import com.adhi.challengech4.model.GetName
 import com.adhi.challengech4.model.Player
-import com.adhi.challengech4.ui.dialog.OnMenuSelectedListener
-import com.adhi.challengech4.ui.dialog.ResultDialogFragment
+import com.adhi.challengech4.ui.dialog.CustomDialog
+import com.adhi.challengech4.ui.dialog.OnMenuSelectedListener2
 import com.adhi.challengech4.ui.menu.MenuGameActivity
 
 class GameActivity : AppCompatActivity(), SuitGameListener{
@@ -119,11 +118,6 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
         binding.ivPlayertwo.visibility=View.INVISIBLE
         binding.ivDraw.visibility=View.INVISIBLE
 
-        binding.ivLeftRock.setBackgroundColor(Color.TRANSPARENT)
-        binding.ivLeftPaper.setBackgroundColor(Color.TRANSPARENT)
-        binding.ivLeftScissor.setBackgroundColor(Color.TRANSPARENT)
-
-
         when (gameState) {
             GameState.IDLE -> {
                 binding.ivVersus.isVisible = true
@@ -154,28 +148,58 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
     }
 
     override fun onGameFinished(gameState: GameState, winner: Player) {
-        val result:String
+       checkGameWinner(winner)
+    }
+
+
+    var value:String? = null
+    private fun checkGameWinner(winner: Player){
+
+        //val resultFragment = ResultDialogFragment()
 
         when (winner.playerSide) {
             PlayerSide.PLAYER_ONE -> {
-                result = "$name \n Menang"
-                onSelectedMenu()
+                value = "$name \n Menang"
+                Toast.makeText(this,value,Toast.LENGTH_SHORT).show()
+                onSelectedMenuDialog()
             }
             PlayerSide.PLAYER_TWO -> {
-                result ="Player 2 \n Menang"
-                onSelectedMenu()
+                value ="Player 2 \n Menang"
+                Toast.makeText(this,value,Toast.LENGTH_SHORT).show()
+                onSelectedMenuDialog()
 
             }
             PlayerSide.PLAYER_DRAW -> {
-                result = "Player Draw"
-                onSelectedMenu()
+                value = "Player Draw"
+                Toast.makeText(this,value,Toast.LENGTH_SHORT).show()
+                onSelectedMenuDialog()
             }
         }
+       /* CustomDialog.newInstance(
+            GetName(
+                desc = value
+            )
+        )*/
     }
 
-    private fun onSelectedMenu(){
-        ResultDialogFragment().apply {
+    private fun onSelectedMenuDialog(){
+        /*CustomDialog().apply {
+            setOnMenuSelectedListener2(object : OnMenuSelectedListener2{
+                override fun onPlayAgain(dialog: DialogFragment) {
+                    dialog.dismiss()
+                    suitGameManager.startOrResetGame()
+                    Toast.makeText(context,"Play Again Please!!!", Toast.LENGTH_SHORT).show()
+                }
 
+                override fun onBacToMenu(dialog: DialogFragment) {
+                    MenuGameActivity.startActivity(this@GameActivity, name.toString())
+                    Toast.makeText(context,"Back To Menu!!!", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }.show(supportFragmentManager,null)*/
+
+
+       /* ResultDialogFragment().apply {
             setOnMenuSelectedListener(object : OnMenuSelectedListener{
                 override fun onPlayAgain(dialog: DialogFragment) {
                     dialog.dismiss()
@@ -188,10 +212,19 @@ class GameActivity : AppCompatActivity(), SuitGameListener{
                     Toast.makeText(context,"Back To Menu!!!", Toast.LENGTH_SHORT).show()
                 }
             })
-        }.show(supportFragmentManager,null)
+        }.show(supportFragmentManager,null)*/
+
+        AlertDialog.Builder(this@GameActivity)
+            .setTitle(getString(R.string.text_title_alert))
+            .setMessage(getString(R.string.placeholder_winner,value))
+            .setCancelable(false)
+            .setPositiveButton(getString(R.string.text_play_again)) {dialog, id ->
+                suitGameManager.startOrResetGame()
+            }
+            .setNegativeButton(getString(R.string.text_back_menu)){dialog, id ->
+                MenuGameActivity.startActivity(this@GameActivity, name.toString())
+            }.create().show()
     }
-
-
 
     companion object {
         private const val EXTRAS_MULTIPLAYER_MODE = "EXTRAS_MULTIPLAYER_MODE"

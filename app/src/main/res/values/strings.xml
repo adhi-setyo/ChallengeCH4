@@ -33,7 +33,8 @@
     <string name="placeholder_player_1">%s</string>
     <string name="text_title_dialog">Hasil Permainan</string>
     <string name="text_winner">Player \n Menang!!</string>
-    <string name="placeholder_winner">%s \n Menang!!</string>
+    <string name="placeholder_winner">%s</string>
     <string name="text_play_again">Main Lagi</string>
     <string name="text_back_menu">Kembali Ke Menu</string>
+    <string name="text_title_alert">Hasil Permainan</string>
 </resources>

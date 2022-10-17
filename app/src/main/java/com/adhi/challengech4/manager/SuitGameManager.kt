@@ -244,7 +244,6 @@ class MultiplerSuitGameManager(listener: SuitGameListener):SuitGameManagerImpl(l
             if (playerTwo.playerCharacter.ordinal > PlayerPosition.TOP.ordinal) {
                 val currentIndex = playerTwo.playerCharacter.ordinal
                 setPlayerTwoCharacter(getPlayerCharacterByOrdinal(currentIndex - 1), PlayerState.IDLE)
-                startGame()
             }
         }
     }
@@ -256,7 +255,6 @@ class MultiplerSuitGameManager(listener: SuitGameListener):SuitGameManagerImpl(l
             if (playerTwo.playerCharacter.ordinal == PlayerPosition.TOP.ordinal) {
                 val currentIndex = playerTwo.playerCharacter.ordinal
                 setPlayerTwoCharacter(getPlayerCharacterByOrdinal(currentIndex), PlayerState.IDLE)
-                startGame()
             }
         }
     }
@@ -268,7 +266,6 @@ class MultiplerSuitGameManager(listener: SuitGameListener):SuitGameManagerImpl(l
             if (playerTwo.playerCharacter.ordinal < PlayerPosition.BOTTOM.ordinal) {
                 val currentIndex = playerTwo.playerCharacter.ordinal
                 setPlayerTwoCharacter(getPlayerCharacterByOrdinal(currentIndex + 1), PlayerState.IDLE)
-                startGame()
             }
         }
     }
